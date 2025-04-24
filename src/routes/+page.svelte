@@ -26,7 +26,7 @@
 	}));
 
 	const options = $state({
-		view: 'timeGridWeek',
+		view: 'dayGridMonth',
 		events: calendarEvents,
 		eventClick: handleEventClick,
 		headerToolbar: {
