@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	function contrastColor(hex: string) {
 		if (!hex) return '#ffffff';
 		const color = hex.charAt(0) === '#' ? hex.substring(1, 7) : hex;
@@ -9,14 +11,17 @@
 	}
 
 	const {
-		show = $bindable(),
+		show = $bindable<boolean>(),
 		title,
 		color,
-		onClose
+		onClose,
+		children
 	} = $props<{
 		show: boolean;
 		title: string;
 		color: string;
+		onClose: () => void;
+		children: Snippet;
 	}>();
 
 	const textColor = $derived(() => contrastColor(color));
@@ -56,14 +61,14 @@
 				<span class="flex-1 text-lg font-semibold">{title}</span>
 				<button
 					type="button"
-					class="p-1 text-2xl hover:text-red-200"
+					class="p-1 text-2xl hover:cursor-pointer hover:text-red-400"
 					aria-label="Close"
 					onclick={close}
 					>&times;
 				</button>
 			</div>
 			<div class="overflow-y-auto p-6 font-sans leading-relaxed text-gray-800">
-				<slot />
+				{@render children()}
 			</div>
 		</div>
 	</div>
