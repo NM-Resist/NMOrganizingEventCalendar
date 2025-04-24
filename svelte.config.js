@@ -1,35 +1,17 @@
-import adapter from '@sveltejs/adapter-static';
-import preprocess from 'svelte-preprocess';
-
-/**
- * SvelteKit configuration for a static GitHub Pages deployment.
- * - Uses adapter-static to output purely static files in `build/`.
- * - Sets `paths.base` to the repo name for correct URL prefixing.
- * - Prerenders all pages by default.
- */
+import adapter from '@sveltejs/adapter-auto';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Enable preprocessors (e.g., SCSS, PostCSS) as needed
-	preprocess: preprocess(),
+	// Consult https://svelte.dev/docs/kit/integrations
+	// for more information about preprocessors
+	preprocess: vitePreprocess(),
 
 	kit: {
-		// Use the static adapter for a fully static build
-		adapter: adapter({
-			// If you need SPA-style routing (fallback to 200.html), uncomment:
-			// fallback: '200.html'
-		}),
-
-		// When hosting under a repo (e.g., you.github.io/nmgrassrootsbb), set the base
-		paths: {
-			base: '/nmgrassrootsbb',
-			assets: ''
-		},
-
-		// Prerender all routes by default (static HTML output)
-		prerender: {
-			default: true
-		}
+		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
+		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
+		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
+		adapter: adapter()
 	}
 };
 
