@@ -1,4 +1,5 @@
 <script lang="ts">
+	//@ts-ignore
 	import { Calendar, DayGrid, List, ResourceTimeline, TimeGrid } from '@event-calendar/core';
 	import Modal from '../components/Modal.svelte';
 	import type { EventInfo } from '$lib/types';
@@ -83,10 +84,20 @@
 		{selectedEvent?.end?.toLocaleString()}
 	</p>
 
-	<p class="mt-2">
-		<span class="font-semibold">Address:</span>
-		{selectedEvent?.extendedProps?.address}, {selectedEvent?.extendedProps?.city}
-	</p>
+	{#if selectedEvent?.extendedProps?.venue || selectedEvent?.extendedProps?.address || selectedEvent?.extendedProps?.city}
+		<p class="mt-2">
+			<span class="font-bold">Address:</span><br />
+			{#if selectedEvent?.extendedProps?.venue}
+				<span class="font-semibold">{selectedEvent.extendedProps.venue}</span><br />
+			{/if}
+			{#if selectedEvent?.extendedProps?.address}
+				{selectedEvent.extendedProps.address}<br />
+			{/if}
+			{#if selectedEvent?.extendedProps?.city}
+				{selectedEvent.extendedProps.city}
+			{/if}
+		</p>
+	{/if}
 
 	<a
 		href={selectedEvent?.extendedProps?.eventUrl}
