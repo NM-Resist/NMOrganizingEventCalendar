@@ -24,8 +24,6 @@
 		children: Snippet;
 	}>();
 
-	const textColor = $derived(() => contrastColor(color));
-
 	function close() {
 		onClose();
 	}
@@ -57,7 +55,7 @@
 		<div
 			class="relative m-4 flex max-h-[80vh] w-[480px] max-w-[90%] flex-col overflow-hidden rounded-lg bg-white shadow-lg"
 		>
-			<div class="flex items-center bg-blue-600 p-4 text-white">
+			<div class="flex items-center p-4" style="background-color: {color}; color: {contrastColor(color)}">
 				<span class="flex-1 text-lg font-semibold">{title}</span>
 				<button
 					type="button"

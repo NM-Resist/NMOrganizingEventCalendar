@@ -1,3 +1,21 @@
+export type CalendarEvent = {
+	id: string;
+	resourceIds?: string[];
+	allDay?: boolean;
+	start: Date;
+	end: Date;
+	title: string;
+	editable?: boolean;
+	startEditable?: boolean;
+	durationEditable?: boolean;
+	display?: 'auto' | 'background';
+	backgroundColor?: string;
+	textColor?: string;
+	classNames?: string[];
+	styles?: string[];
+	extendedProps?: Record<string, any>;
+};
+
 export type EventInfo = {
 	id: number;
 	title: string;
