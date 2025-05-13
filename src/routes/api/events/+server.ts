@@ -5,10 +5,11 @@ import type { EventInfo, MobilizeEvent } from '$lib/types';
 
 export const GET: RequestHandler = async () => {
 	// compute one week ago, in seconds
-	const oneWeekAgo = Math.floor((Date.now() - 7 * 24 * 60 * 60 * 1000) / 1000);
+	const DAYS_AGO = 1;
+	const yesterday = Math.floor((Date.now() - DAYS_AGO * 24 * 60 * 60 * 1000) / 1000);
 
 	const res = await fetch(
-		`https://api.mobilize.us/v1/organizations/${env.ORG_ID}/events?timeslot_start=gte_${oneWeekAgo}`,
+		`https://api.mobilize.us/v1/organizations/${env.ORG_ID}/events?timeslot_start=gte_${yesterday}`,
 		{
 			headers: {
 				Authorization: `Bearer ${env.MOBILIZE_API_KEY}`,

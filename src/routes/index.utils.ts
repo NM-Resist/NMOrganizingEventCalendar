@@ -1,6 +1,7 @@
 import type { CalendarEvent, EventInfo } from '$lib/types';
 import { toZonedTime } from 'date-fns-tz';
 import { env } from '$env/dynamic/public';
+import { contrastColor } from '$lib/utils';
 
 // Color palette for cities
 export const COLORS = [

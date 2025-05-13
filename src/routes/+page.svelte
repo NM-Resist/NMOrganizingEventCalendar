@@ -3,24 +3,29 @@
 	import { Calendar, DayGrid, List, ResourceTimeline, TimeGrid } from '@event-calendar/core';
 	import Modal from '../components/Modal.svelte';
 	import type { CalendarEvent, EventInfo } from '$lib/types';
-	import { getCityColorMap, getUniqueCities, transformMobilizeEventsToCalendarEvents } from './index.utils';
+	import {
+		getCityColorMap,
+		getUniqueCities,
+		transformMobilizeEventsToCalendarEvents
+	} from './index.utils';
+	import { contrastColor } from '$lib/utils';
 
 	const { data } = $props<{ data: { events: EventInfo[] } }>();
 
 	// State
-	let selectedCity = $state<string>()
+	let selectedCity = $state<string>();
 	let showModal = $state(false);
 	let selectedEvent = $state<CalendarEvent>();
 
 	// Derived values
-	const uniqueCities = getUniqueCities(data.events)
+	const uniqueCities = getUniqueCities(data.events);
 	const cityColorMap = getCityColorMap(uniqueCities);
-	const allCalendarEvents = transformMobilizeEventsToCalendarEvents(data.events, cityColorMap)
+	const allCalendarEvents = transformMobilizeEventsToCalendarEvents(data.events, cityColorMap);
 
 	// Calendar events, filtered by the selected city
 	const filteredCalendarEvents = $derived(() => {
 		return selectedCity
-			? allCalendarEvents.filter(e => e?.extendedProps?.city === selectedCity)
+			? allCalendarEvents.filter((e) => e?.extendedProps?.city === selectedCity)
 			: allCalendarEvents;
 	});
 
@@ -33,6 +38,14 @@
 			start: 'title',
 			center: 'prev,next today',
 			end: 'dayGridMonth,timeGridWeek,listMonth'
+		},
+		slotMinTime: '08:00:00',
+		eventDidMount(info: { event: CalendarEvent; el: HTMLElement; view: { type: string } }) {
+			const isListView = info.view.type.startsWith('list');
+			if (!isListView) {
+				const bg = info.event.backgroundColor || '#fff';
+				info.el.style.color = contrastColor(bg);
+			}
 		}
 	});
 
@@ -41,7 +54,6 @@
 		options.events = filteredCalendarEvents();
 	});
 
-
 	function handleEventClick(e: Calendar.EventClickInfo) {
 		selectedEvent = e.event;
 		showModal = true;
@@ -49,10 +61,9 @@
 
 	function handleLegendClick(city: string | null) {
 		// Toggle: clicking selected city again clears filter
-			selectedCity = city === selectedCity || city === null ? undefined: city;
+		selectedCity = city === selectedCity || city === null ? undefined : city;
 	}
 </script>
-
 
 <!-- Legend with filter -->
 <div class="mt-8 flex flex-wrap justify-center gap-3">
@@ -63,9 +74,12 @@
 		class="flex items-center space-x-2 px-3 py-1 rounded border text-sm transition-colors cursor-pointer"
 		class:selected={!selectedCity}
 		onclick={() => handleLegendClick(null)}
-		style="background: {selectedCity === null ? '#eee' : '#fff'}; font-weight: {selectedCity === null ? 'bold' : 'normal'};"
+		style="background: {selectedCity === null ? '#eee' : '#fff'}; font-weight: {selectedCity ===
+		null
+			? 'bold'
+			: 'normal'};"
 	>
-		<span class="inline-block w-4 h-4 rounded bg-gray-300"></span>
+		<span class="inline-block h-4 w-4 rounded bg-gray-300"></span>
 		<span>All</span>
 	</button>
 	{#each uniqueCities as city}
@@ -74,11 +88,13 @@
 			class="flex items-center space-x-2 px-3 py-1 rounded border text-sm transition-colors cursor-pointer"
 			class:selected={selectedCity === city}
 			onclick={() => handleLegendClick(city)}
-			style="background: {selectedCity === city ? cityColorMap[city] + '33' : '#fff'}; border-color: {cityColorMap[city]}; font-weight: {selectedCity === city ? 'bold' : 'normal'};"
+			style="background: {selectedCity === city
+				? cityColorMap[city] + '33'
+				: '#fff'}; border-color: {cityColorMap[city]}; font-weight: {selectedCity === city
+				? 'bold'
+				: 'normal'};"
 		>
-			<span
-				class="inline-block w-4 h-4 rounded"
-				style="background-color: {cityColorMap[city]}"
+			<span class="inline-block h-4 w-4 rounded" style="background-color: {cityColorMap[city]}"
 			></span>
 			<span>{city}</span>
 		</button>
@@ -87,7 +103,7 @@
 
 <!--Calendar-->
 <div class="mx-auto my-8 max-w-4xl overflow-hidden rounded-sm p-1">
-	<Calendar plugins={[DayGrid, List, ResourceTimeline, TimeGrid]} {options} />
+	<Calendar plugins={[DayGrid, List, TimeGrid]} {options} />
 </div>
 
 <!--Modal-->

@@ -1,14 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-
-	function contrastColor(hex: string) {
-		if (!hex) return '#ffffff';
-		const color = hex.charAt(0) === '#' ? hex.substring(1, 7) : hex;
-		const r = parseInt(color.substring(0, 2), 16);
-		const g = parseInt(color.substring(2, 4), 16);
-		const b = parseInt(color.substring(4, 6), 16);
-		return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? '#000000' : '#ffffff';
-	}
+	import { contrastColor } from '$lib/utils';
 
 	const {
 		show = $bindable<boolean>(),
@@ -55,7 +47,10 @@
 		<div
 			class="relative m-4 flex max-h-[80vh] w-[480px] max-w-[90%] flex-col overflow-hidden rounded-lg bg-white shadow-lg"
 		>
-			<div class="flex items-center p-4" style="background-color: {color}; color: {contrastColor(color)}">
+			<div
+				class="flex items-center p-4"
+				style="background-color: {color}; color: {contrastColor(color)}"
+			>
 				<span class="flex-1 text-lg font-semibold">{title}</span>
 				<button
 					type="button"
