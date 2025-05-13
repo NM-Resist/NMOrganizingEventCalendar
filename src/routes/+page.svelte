@@ -53,17 +53,6 @@
 	}
 </script>
 
-<h1 class="my-6 text-center text-3xl font-bold">New Mexico Grassroot Events</h1>
-<div class="mb-4 text-center">
-	<a
-		href="https://linktr.ee/nmresist"
-		target="_blank"
-		rel="noopener noreferrer"
-		class="text-blue-500 hover:underline"
-	>
-		Visit our Linktree for more resources
-	</a>
-</div>
 
 <!-- Legend with filter -->
 <div class="mt-8 flex flex-wrap justify-center gap-3">
