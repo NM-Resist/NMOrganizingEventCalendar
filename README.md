@@ -1,4 +1,4 @@
-# New Mexico Grassroots Events Bulletin Board
+# New Mexico Grassroots Event Calendar
 
 A Svelte 5-powered web app that displays a dynamic, interactive calendar of grassroots events in New Mexico. Browse
 upcoming events, get full details in a modal dialog, and conveniently explore additional resources.
