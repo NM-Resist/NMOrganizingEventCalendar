@@ -22,7 +22,7 @@
 	class="mt-6 rounded border border-yellow-200 bg-yellow-50 p-2 text-center text-sm text-yellow-800"
 >
 	Want to add an event to the calendar? Email us at
-	<a href="mailto:averytiffany22@gmail.com" class="text-yellow-900 underline hover:text-yellow-700">
-		averytiffany22@gmail.com
+	<a href="mailto:ta7375535@gmail.com" class="text-yellow-900 underline hover:text-yellow-700">
+		ta7375535@gmail.com
 	</a>
 </p>
