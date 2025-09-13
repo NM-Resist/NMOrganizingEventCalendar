@@ -4,7 +4,7 @@
 	let { children } = $props();
 </script>
 
-<h1 class="my-6 text-center text-3xl font-bold">New Mexico Grassroot Events</h1>
+<h1 class="my-6 text-center text-3xl font-bold">New Mexico Solidarity Events</h1>
 <div class="mb-4 text-center">
 	<a
 		href="https://linktr.ee/nmresist"
